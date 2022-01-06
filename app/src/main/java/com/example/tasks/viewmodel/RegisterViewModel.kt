@@ -2,11 +2,32 @@ package com.example.tasks.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import com.example.tasks.service.HeaderModel
+import com.example.tasks.service.constants.TaskConstants
+import com.example.tasks.service.listener.ApiListener
+import com.example.tasks.service.listener.ValidationListener
+import com.example.tasks.service.repository.PersonRepository
+import com.example.tasks.service.repository.local.SecurityPreferences
 
 class RegisterViewModel(application: Application) : AndroidViewModel(application) {
 
-    fun create(name: String, email: String, password: String) {
+    private val mPersonRepository = PersonRepository(application)
 
+    private val mRegister = MutableLiveData<ValidationListener>()
+    var register: LiveData<ValidationListener> = mRegister
+
+    fun register(name: String, email: String, password: String) {
+        mPersonRepository.register(name, email, password, object : ApiListener {
+            override fun onSuccess(model: HeaderModel) {
+                mRegister.value = ValidationListener()
+            }
+
+            override fun onFailure(message: String) {
+                mRegister.value = ValidationListener(message)
+            }
+        })
     }
 
 }

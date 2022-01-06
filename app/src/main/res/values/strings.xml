@@ -32,5 +32,7 @@
     <string name="expiradas">Expiradas</string>
     <string name="all_tasks">Tarefas</string>
     <string name="proximos_7_dias">Próximos 7 dias</string>
+    <string name="preencha_todos_campos">Preencha todos os campos</string>
+    <string name="usuario_criado_sucesso">Usuário criado com sucesso!</string>
 
 </resources>

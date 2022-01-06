@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 
 class TaskFormViewModel(application: Application) : AndroidViewModel(application) {
 
-    
+    fun create() {
 
+    }
 }

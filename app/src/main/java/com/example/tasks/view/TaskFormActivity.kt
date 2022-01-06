@@ -6,17 +6,18 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.example.tasks.R
 import com.example.tasks.viewmodel.RegisterViewModel
+import com.example.tasks.viewmodel.TaskFormViewModel
 import kotlinx.android.synthetic.main.activity_register.*
 
 class TaskFormActivity : AppCompatActivity(), View.OnClickListener {
 
-    private lateinit var mViewModel: RegisterViewModel
+    private lateinit var mViewModel: TaskFormViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_task_form)
 
-        mViewModel = ViewModelProvider(this).get(RegisterViewModel::class.java)
+        mViewModel = ViewModelProvider(this).get(TaskFormViewModel::class.java)
 
         // Inicializa eventos
         listeners()
@@ -30,8 +31,6 @@ class TaskFormActivity : AppCompatActivity(), View.OnClickListener {
             val name = edit_name.text.toString()
             val email = edit_email.text.toString()
             val password = edit_password.text.toString()
-
-            mViewModel.create(name, email, password)
         }
     }
 

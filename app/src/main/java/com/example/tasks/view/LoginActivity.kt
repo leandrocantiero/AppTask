@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.example.tasks.R
 import com.example.tasks.viewmodel.LoginViewModel
@@ -19,11 +21,9 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
 
         mViewModel = ViewModelProvider(this).get(LoginViewModel::class.java)
 
-        // Inicializa eventos
         setListeners();
-        observe()
+        setObservers()
 
-        // Verifica se usuário está logado
         verifyLoggedUser()
     }
 
@@ -35,34 +35,44 @@ class LoginActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    /**
-     * Inicializa os eventos de click
-     */
     private fun setListeners() {
         button_login.setOnClickListener(this)
         text_register.setOnClickListener(this)
     }
 
-    /**
-     * Verifica se usuário está logado
-     */
     private fun verifyLoggedUser() {
         mViewModel.verifyLoggedUser()
     }
 
-    /**
-     * Observa ViewModel
-     */
-    private fun observe() {}
+    private fun setObservers() {
+        mViewModel.login.observe(this, Observer {
+            if (it.success()) {
+                startActivity(Intent(applicationContext, MainActivity::class.java))
+            } else {
+                Toast.makeText(this, it.message(), Toast.LENGTH_SHORT).show()
+            }
+        })
 
-    /**
-     * Autentica usuário
-     */
+        mViewModel.loggedUser.observe(this, Observer {
+            if (it) {
+                startActivity(Intent(applicationContext, MainActivity::class.java))
+            }
+        })
+    }
+
     private fun handleLogin() {
-        val email = edit_email.text.toString()
-        val password = edit_password.text.toString()
+        if (validateLogin()) {
+            val email = edit_email.text.toString()
+            val password = edit_password.text.toString()
 
-        mViewModel.doLogin(email, password)
+            mViewModel.login(email, password)
+        } else {
+            Toast.makeText(this, R.string.preencha_todos_campos, Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun validateLogin(): Boolean {
+        return edit_email.text.toString() != "" && edit_password.text.toString() != ""
     }
 
 }
