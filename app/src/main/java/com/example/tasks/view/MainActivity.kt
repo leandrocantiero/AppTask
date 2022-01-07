@@ -3,6 +3,7 @@ package com.example.tasks.view
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.widget.TextView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -16,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.ui.*
 import com.example.tasks.R
 import com.example.tasks.viewmodel.MainViewModel
+import kotlinx.android.synthetic.main.nav_header_main.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,6 +41,8 @@ class MainActivity : AppCompatActivity() {
 
         setupNavigation()
         setObservers()
+
+        mViewModel.loadUserName()
     }
 
     override fun onResume() {
@@ -59,6 +63,9 @@ class MainActivity : AppCompatActivity() {
             drawerLayout
         )
 
+        setupActionBarWithNavController(navController, appBarConfiguration)
+        navView.setupWithNavController(navController)
+
         navView.setNavigationItemSelectedListener {
             if (it.itemId == R.id.nav_logout) {
                 mViewModel.logout()
@@ -69,15 +76,19 @@ class MainActivity : AppCompatActivity() {
 
             true
         }
-
-        setupActionBarWithNavController(navController, appBarConfiguration)
-        navView.setupWithNavController(navController)
     }
 
     private fun setObservers() {
         mViewModel.logout.observe(this, Observer {
             startActivity(Intent(this, LoginActivity::class.java))
             finish()
+        })
+
+        mViewModel.userName.observe(this, Observer {
+            val nav = findViewById<NavigationView>(R.id.nav_view)
+            val header = nav.getHeaderView(0)
+
+            header.findViewById<TextView>(R.id.text_name).text = it
         })
     }
 
