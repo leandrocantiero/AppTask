@@ -17,7 +17,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
     var register: LiveData<ValidationListener> = mRegister
 
     fun register(name: String, email: String, password: String) {
-        mPersonRepository.register(name, email, password, object : ApiListener {
+        mPersonRepository.register(name, email, password, object : ApiListener<HeaderModel> {
             override fun onSuccess(model: HeaderModel) {
                 mRegister.value = ValidationListener()
             }

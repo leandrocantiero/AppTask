@@ -6,11 +6,11 @@ import retrofit2.Call
 import retrofit2.http.*
 
 interface TaskService {
+    @GET("Task")
+    fun get(): Call<List<TaskModel>>
+
     @GET("Task/{id}")
     fun getById(@Path(value = "id", encoded = true) id: Int): Call<TaskModel>
-
-    @GET("Task")
-    fun getAll(): Call<List<TaskModel>>
 
     @GET("Task/Next7Days")
     fun getWeek(): Call<List<TaskModel>>
@@ -21,8 +21,8 @@ interface TaskService {
     @POST("Task")
     @FormUrlEncoded
     fun create(
-        @Field("PriorityId") priorityId: Int,
         @Field("Description") description: String,
+        @Field("PriorityId") priorityId: Int,
         @Field("DueDate") dueDate: String,
         @Field("Complete") complete: Boolean
     ): Call<Boolean>
@@ -31,8 +31,8 @@ interface TaskService {
     @FormUrlEncoded
     fun update(
         @Field("Id") id: Int,
-        @Field("PriorityId") priorityId: Int,
         @Field("Description") description: String,
+        @Field("PriorityId") priorityId: Int,
         @Field("DueDate") dueDate: String,
         @Field("Complete") complete: Boolean
     ): Call<Boolean>

@@ -3,7 +3,7 @@
 
     <string name="ERROR_UNEXPECTED">Um erro inesperado ocorreu. Tente novamente mais tarde.</string>
     <string name="ERROR_LOAD_TASK">Erro ao carregar a tarefa.</string>
-    <string name="ERROR_INTERNET_CONNECTION">Conexão à internet necessária para uso da applicação.</string>
+    <string name="ERROR_INTERNET_CONNECTION">Ops! parece que estamos sem internet</string>
 
     <string name="task_updated">Tarefa atualizada com sucesso!</string>
     <string name="task_created">Tarefa criada com sucesso!</string>
@@ -34,5 +34,8 @@
     <string name="proximos_7_dias">Próximos 7 dias</string>
     <string name="preencha_todos_campos">Preencha todos os campos</string>
     <string name="usuario_criado_sucesso">Usuário criado com sucesso!</string>
+    <string name="tarefa_salva_com_sucesso">Tarefa salva com sucesso!</string>
+    <string name="salvar">Salvar</string>
+    <string name="sucesso_operacao">Operação realizada com sucesso!</string>
 
 </resources>

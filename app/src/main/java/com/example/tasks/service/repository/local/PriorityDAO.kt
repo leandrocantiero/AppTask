@@ -10,4 +10,10 @@ import com.example.tasks.service.model.PriorityModel
 interface PriorityDAO {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun save(list: List<PriorityModel>)
+
+    @Query("select * from priority")
+    fun list(): List<PriorityModel>
+
+    @Query("select * from priority where id = :id")
+    fun getById(id: Int): PriorityModel
 }
