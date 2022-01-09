@@ -1,17 +1,21 @@
 package com.example.tasks.viewmodel
 
 import android.app.Application
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.example.tasks.service.model.HeaderModel
 import com.example.tasks.service.constants.TaskConstants
+import com.example.tasks.service.helper.FingerPrintHelper
 import com.example.tasks.service.listener.ApiListener
 import com.example.tasks.service.listener.ValidationListener
 import com.example.tasks.service.repository.PersonRepository
 import com.example.tasks.service.repository.PriorityRepository
 import com.example.tasks.service.repository.local.SecurityPreferences
 import com.example.tasks.service.repository.remote.RetrofitClient
+import java.util.concurrent.Executor
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -22,8 +26,8 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     private val mLogin = MutableLiveData<ValidationListener>()
     var login: LiveData<ValidationListener> = mLogin
 
-    private val mLoggedUser = MutableLiveData<Boolean>()
-    var loggedUser: LiveData<Boolean> = mLoggedUser
+    private val mFingerPrint = MutableLiveData<Boolean>()
+    var fingerPrint: LiveData<Boolean> = mFingerPrint
 
     fun login(email: String, password: String) {
         mPersonRepository.login(email, password, object : ApiListener<HeaderModel> {
@@ -43,7 +47,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         })
     }
 
-    fun verifyLoggedUser() {
+    fun isAuthenticationAvaliable() {
         val token = mSharedPreferences.get(TaskConstants.SHARED.TOKEN_KEY)
         val personKey = mSharedPreferences.get(TaskConstants.SHARED.PERSON_KEY)
         val logged = (token != "" && personKey != "")
@@ -54,7 +58,8 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
             mPriorityRepository.get()
         }
 
-        mLoggedUser.value = logged
+        if (FingerPrintHelper(getApplication()).isAuthenticationAvaliable()) {
+            mFingerPrint.value = logged
+        }
     }
-
 }

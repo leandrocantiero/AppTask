@@ -23,7 +23,6 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:backgroundTint="#fafafa"
         android:textSize="15sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -31,8 +30,13 @@
 
     <View
         android:id="@+id/view_description"
+        style="@style/view"
+
         android:layout_width="match_parent"
         android:layout_height="1dp"
+
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_description" />
 
     <TextView
@@ -50,13 +54,14 @@
         android:id="@+id/spinner_priority"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="#c1c1c1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_priority" />
 
     <View
         android:id="@+id/view_complete"
+        style="@style/view"
+
         android:layout_width="0dp"
         android:layout_height="1dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -77,6 +82,8 @@
 
     <View
         android:id="@+id/view_date"
+        style="@style/view"
+
         android:layout_width="0dp"
         android:layout_height="1dp"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -88,42 +95,38 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:textSize="18sp"
         android:background="@android:color/transparent"
         android:gravity="center_vertical|center_horizontal"
         android:hint="@string/clique_para_selecionar_a_data"
+        android:textSize="18sp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/view_date" />
 
-    <View
-        android:id="@+id/view_save"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_date" />
-
     <Button
         android:id="@+id/button_cancel"
+        style="@style/buttonBlack"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/black"
         android:minWidth="150dp"
+        android:paddingHorizontal="42dp"
         android:text="@string/cancelar"
-        android:textColor="@color/white"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@id/button_save" />
 
     <Button
         android:id="@+id/button_save"
+        style="@style/buttonAccent"
+
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/colorAccent"
         android:minWidth="150dp"
+        android:paddingHorizontal="42dp"
         android:text="@string/salvar"
-        android:textColor="@color/white"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toRightOf="@id/button_cancel"
         app:layout_constraintRight_toRightOf="parent" />
